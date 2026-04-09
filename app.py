@@ -1,35 +1,35 @@
 import streamlit as st
+from PIL import Image
 
-# إعداد الصفحة الرسمية
-st.set_page_config(page_title="نظام الإدارة المدرسية - الشلف", layout="wide")
+st.set_page_config(page_title="نظام القيادة الإدارية - الشلف", layout="wide")
 
-# 1. العلم الجزائري يرفرف
-st.markdown('<div style="display: flex; justify-content: center;"><img src="https://githubusercontent.com" width="150"></div>', unsafe_allow_html=True)
+# الواجهة الرسمية مع العلم يرفرف
+st.markdown('<div style="text-align:center"><img src="https://githubusercontent.com" width="120"></div>', unsafe_allow_html=True)
+st.markdown("<h2 style='text-align:center;'>الجمهورية الجزائرية الديمقراطية الشعبية</h2>", unsafe_allow_html=True)
 
-# 2. العناوين الرسمية
-st.markdown("<h2 style='text-align: center; color: #1e5631;'>الجمهورية الجزائرية الديمقراطية الشعبية</h2>", unsafe_allow_html=True)
-st.markdown("<h3 style='text-align: center; color: #1e5631;'>وزارة التربية الوطنية - مديرية التربية لولاية الشلف</h3>", unsafe_allow_html=True)
+# قائمة المهام الجانبية
+menu = ["الرئيسية", "💰 فضاء المقتصد", "📦 أمين المخزن", "🔍 نظام الكودبار"]
+choice = st.sidebar.selectbox("القائمة الرئيسية", menu)
 
-st.write("---")
+if choice == "الرئيسية":
+    st.info("مرحباً بك في نظام تسيير المؤسسات التربوية")
+    st.write("استخدم القائمة الجانبية للتنقل بين الأقسام")
 
-# 3. إدخال اسم المؤسسة
-school_name = st.text_input("📍 يرجى إدخال اسم المؤسسة التعليمية للدخول:")
-
-if school_name:
-    st.success(f"مرحباً بك في النظام الرقمي لـ: {school_name}")
+elif choice == "💰 فضاء المقتصد":
+    st.header("تسيير الميزانية والجرد الآلي")
     
-    # 4. شبكة الأزرار بنظام الصلاحيات
-    st.markdown("### لوحة التحكم المركزية:")
-    col1, col2 = st.columns(2)
+    # ميزة تصوير الفاتورة
+    st.subheader("📸 تصوير فاتورة جديدة")
+    img_file = st.camera_input("التقط صورة للفاتورة بالجوال")
     
-    with col1:
-        st.button("💰 فضاء المقتصد", use_container_width=True)
-        st.button("📝 نائب المدير", use_container_width=True)
-        st.button("📦 أمين المخزن", use_container_width=True)
-        st.button("👨‍🏫 فضاء الأستاذ", use_container_width=True)
+    if img_file:
+        st.image(img_file, caption="تم التقاط الفاتورة")
+        st.warning("جاري استخراج النص وتحويله إلى جرد تلقائي... (هذه الميزة تجريبية)")
+        # هنا سنضيف لاحقاً كود EasyOCR لقراءة الأسعار والكميات
 
-    with col2:
-        st.button("🏢 مدير المؤسسة", use_container_width=True)
-        st.button("👷 الإدارة والعمال", use_container_width=True)
-        st.button("📚 المكتبة المدرسية", use_container_width=True)
-        st.button("🔍 نظام الكودبار", use_container_width=True)
+elif choice == "🔍 نظام الكودبار":
+    st.header("توليد الكودبار للتلاميذ والأقسام")
+    name = st.text_input("اسم التلميذ أو رقم القسم:")
+    if st.button("توليد كودبار"):
+        st.success(f"تم إنشاء كود خاص بـ {name}")
+        # هنا سنضيف كود توليد صورة الكودبار للطباعة
